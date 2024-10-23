@@ -5,11 +5,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout Actions
+    - uses: actions/checkout@v4
+    - name: Run Docker
     - uses: azure/docker-login@v2
       with:
         login-server: aulacontainer.azurecr.io
         username: ${{ vars.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - run: |
-        docker build . -t aulacontainer.azurecr.io/teste1:1
-        docker push aulacontainer.azurecr.io/teste1:1
+        docker build . -t aulacontainer.azurecr.io/flask:1
+        docker push aulacontainer.azurecr.io/flask:1
