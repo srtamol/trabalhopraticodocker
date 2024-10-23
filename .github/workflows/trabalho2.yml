@@ -1,4 +1,6 @@
-
+name: trabalho2
+on:
+ workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -6,17 +8,8 @@ jobs:
     - uses: azure/docker-login@v2
       with:
         login-server: aulacontainer.azurecr.io
-        username: ${{ secrets.DOCKER_USERNAME }}
+        username: ${{ vars.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - run: |
         docker build . -t aulacontainer.azurecr.io/k8sdemo:${{ github.sha }}
-        docker push aulacontainer.azurecr.io/k8sdemo:${{ github.sha }}
-    steps:
-        # need checkout before using compose-action
-      - uses: actions/checkout@v3
-      - uses: hoverkraft-tech/compose-action@v2.0.1
-        with:
-          compose-file: "./docker/docker-compose.yml"
-          services: |
-            helloworld2
-        helloworld3
+        docker push aulacontainer.azurecr.io/k8sdemo:${{ github.sha }
