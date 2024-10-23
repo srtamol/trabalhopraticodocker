@@ -11,5 +11,5 @@ jobs:
         username: ${{ vars.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - run: |
-        docker build . -t aulacontainer.azurecr.io/k8sdemo:${{ github.sha }}
-        docker push aulacontainer.azurecr.io/k8sdemo:${{ github.sha }
+        docker build . -t aulacontainer.azurecr.io/teste1:1
+        docker push aulacontainer.azurecr.io/teste1:1
