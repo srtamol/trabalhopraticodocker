@@ -1,61 +1,48 @@
 services:
-  database:
-    image: postgres
+  backend:
+    build:
+      context: ./backend
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
-      interval: 3s
-      retries: 5
-      start_period: 30s
-    expose:
-      - 5432
-    environment:
-      - POSTGRES_PASSWORD=secretpass
-    networks:
-      - network-backend
-    volumes:
-      - my-db-backup:/var/lib/postgresql/data
-
-  backend1:
-    build: .
-    restart: always
-    environment:
-      - FLASK_DB_HOST=database
+    depends_on:
+      - db
+    deploy:
+      replicas: 2
     expose:
       - 5000
-    networks:
-      - network-backend
-      - network-frontend
-    depends_on:
-      database:
-        condition: service_healthy
-  
-  backend2:
-    build: .
-    restart: always
-    environment:
-      - FLASK_DB_HOST=database
-    expose:
-      - 5000
-    networks:
-      - network-backend
-      - network-frontend
-    depends_on:
-      database:
-        condition: service_healthy
+    networks: 
+      - application-network
+      - db-network
 
   frontend:
     build:
-      context: frontend
+      context: ./frontend
+    container_name: frontend
     restart: always
     ports:
-      - 80:80
+      - "80:80"
     networks:
-      - network-frontend
+      - application-network
+    depends_on:
+      - backend
 
-networks:
-  network-backend:
-  network-frontend:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secretpass
+      POSTGRES_DB: postgres
+    container_name: db
+    restart: always
+    expose: 
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - db-network
 
 volumes:
-  my-db-backup:
+  postgres_data:
+
+networks:
+  application-network:
+  db-network:
