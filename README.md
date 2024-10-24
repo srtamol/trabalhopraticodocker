@@ -4,15 +4,16 @@ Este é um simples jogo de adivinhação desenvolvido utilizando o framework Fla
 
 ## Estrutura do Repositório do GIT:
 
-Docker Compose File (docker-compose.yml): Para definir e orquestrar os serviços.
-Dockerfile do Backend Python: Para configurar o container que executa a aplicação Flask.
-Dockerfile do Frontend React: Para configurar o container que serve a aplicação frontend via NGINX.
+Docker Compose File (docker-compose.yml, na pasta raiz do repositorio): Para definir e orquestrar os serviços.
+Dockerfile do Backend (pasta raiz do repositorio: Para configurar o container que executa a aplicação Flask.
+Dockerfile do Frontend (dentro da pasta frontend): Para configurar o container que serve a aplicação frontend via NGINX.
 Configuração do NGINX: Para definir o proxy reverso e o balanceamento de carga entre múltiplas instâncias do backend.
 
 ## Requisitos
 
 - Docker
 - Docker Compose
+- GIT
    
 ## Funcionalidades
 
@@ -29,14 +30,19 @@ Siga os passos abaixo para instalar e rodar o projeto em sua máquina:
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/srtamol/trabalhounidade1.git
-cd trabalhounidade1
+git clone https://github.com/srtamol/trabalhopraticodocker.git
+cd trabalhopraticodocker
 ```
 
-### 2. Verifique e ajuste as configurações
+### 2. Verifique e ajuste as configurações e escale o backend, se achar necessário
 
 _ O arquivo `docker-compose.yml` e o arquivo de configuração do Nginx (`nginx.conf`) já estão configurados para o balanceamento de carga. 
-- O `docker-compose.yml` define dois containers de backend (`backend1` e `backend2`) rodando a mesma aplicação. 
+- O `docker-compose.yml` define dois containers de backend rodando a mesma aplicação. Se quiser editar o total de containers basta editar o docker-compose.yml, o numero de replicas, conforme linha abaixo:
+
+  ```
+       deploy:
+    replicas: 2
+  ```
 - O arquivo `nginx.conf` define a configuração do proxy reverso para distribuir as requisições entre os containers.
 
 ### 3. Rodar o Jogo
@@ -50,20 +56,26 @@ docker-compose up --build
 Isso irá construir as imagens e subir os containers do jogo. A aplicação estará disponível em [http://localhost](http://localhost).
 
 
-### 4. Escalar o backend
-
-Para aumentar o número de containers backend rodando o jogo, pode usar o seguinte comando para escalar:
-
-```bash
-docker-compose up --scale backend1=3 --scale backend2=3
-```
-
 ## Como Jogar
 
 1. Abra o navegador e acesse [http://localhost](http://localhost). Digite uma frase secreta, envie, e salve o game-id.
 2. Para adivinhar a senha, entre com o game_id que foi gerado no passo acima e tente adivinhar.
 3. Toda vez que você interagir com o jogo, o Nginx irá redirecionar sua requisição para um dos containers de backend rodando no ambiente.
 
+## Como Limpar o Projeto
+Para limpar o projeto e remover os containers, volumes e redes criados pelo Docker Compose, siga os passos abaixo:
+
+Parar e remover os containers
+
+```bash
+docker-compose down
+```
+
+Remover volumes associados
+
+```
+docker-compose down -v
+```
 
   
   
