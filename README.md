@@ -36,7 +36,7 @@ cd trabalhopraticodocker
 
 ### 2. Verifique e ajuste as configurações e escale o backend, se achar necessário
 
-_ O arquivo `docker-compose.yml` e o arquivo de configuração do Nginx (`nginx.conf`) já estão configurados para o balanceamento de carga. 
+- O arquivo `docker-compose.yml` e o arquivo de configuração do Nginx (`nginx.conf`) já estão configurados para o balanceamento de carga. 
 - O `docker-compose.yml` define dois containers de backend rodando a mesma aplicação. Se quiser editar o total de containers basta editar o docker-compose.yml, o numero de replicas, conforme linha abaixo:
 
   ```
