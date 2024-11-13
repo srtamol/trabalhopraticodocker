@@ -77,5 +77,12 @@ Remover volumes associados
 docker-compose down -v
 ```
 
-  
-  
+## Pratica 02 ##
+
+1- FrontEnd Deployment: Define um Deployment para o FrontEnd com 2 réplicas.
+2- FrontEnd Service: Cria um Service do tipo NodePort para expor o FrontEnd na porta 30000.
+3- BackEnd Deployment: Define um Deployment para o BackEnd com 2 réplicas.
+4- BackEnd Service: Cria um Service do tipo ClusterIP para o BackEnd.
+5- PostgreSQL Deployment: Define um Deployment para o PostgreSQL com 1 réplica.
+6- PostgreSQL Service: Cria um Service do tipo ClusterIP para o PostgreSQL.
+5- HorizontalPodAutoscaler (HPA): Configura o HPA para o BackEnd, escalando entre 2 e 10 réplicas com base na utilização de CPU.
