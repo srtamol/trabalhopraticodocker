@@ -83,9 +83,9 @@ Este é um simples jogo de adivinhação desenvolvido utilizando o framework Fla
 
 ## Estrutura do Repositório do GIT:
 
-Docker Compose File (docker-compose.yml, na pasta raiz do repositorio): Para definir e orquestrar os serviços.
-Dockerfile do Backend (pasta raiz do repositorio: Para configurar o container que executa a aplicação Flask.
-Dockerfile do Frontend (dentro da pasta frontend): Para configurar o container que serve a aplicação frontend via NGINX.
+- Docker Compose File (docker-compose.yml, na pasta raiz do repositorio): Para definir e orquestrar os serviços.
+- Dockerfile do Backend (pasta raiz do repositorio: Para configurar o container que executa a aplicação Flask.
+- Dockerfile do Frontend (dentro da pasta frontend): Para configurar o container que serve a aplicação frontend via NGINX.
 
 ## Requisitos
 
@@ -114,13 +114,13 @@ cd trabalhopraticodocker
 
 ### 2. Verifique e ajuste as configurações e escale o backend, se achar necessário
 
-FrontEnd Deployment: Define um Deployment para o FrontEnd com 2 réplicas usando uma imagem do Docker Hub.
-FrontEnd Service: Cria um Service do tipo NodePort para expor o FrontEnd na porta 30000.
-BackEnd Deployment: Define um Deployment para o BackEnd com 2 réplicas usando uma imagem do Docker Hub.
-BackEnd Service: Cria um Service do tipo ClusterIP para o BackEnd.
-PostgreSQL Deployment: Define um Deployment para o PostgreSQL com 1 réplica.
-PostgreSQL Service: Cria um Service do tipo ClusterIP para o PostgreSQL.
-HorizontalPodAutoscaler (HPA): Configura o HPA para o BackEnd, escalando entre 2 e 10 réplicas com base na utilização de CPU.
+- FrontEnd Deployment: Define um Deployment para o FrontEnd com 2 réplicas usando uma imagem do Docker Hub.
+- FrontEnd Service: Cria um Service do tipo NodePort para expor o FrontEnd na porta 30000.
+- BackEnd Deployment: Define um Deployment para o BackEnd com 2 réplicas usando uma imagem do Docker Hub.
+- BackEnd Service: Cria um Service do tipo ClusterIP para o BackEnd.
+- PostgreSQL Deployment: Define um Deployment para o PostgreSQL com 1 réplica.
+- PostgreSQL Service: Cria um Service do tipo ClusterIP para o PostgreSQL.
+- HorizontalPodAutoscaler (HPA): Configura o HPA para o BackEnd, escalando entre 2 e 10 réplicas com base na utilização de CPU.
 
 ### 3. Rodar o Jogo
 
@@ -130,50 +130,48 @@ Detalhamento do arquivo jogoadivinhacao.yaml:
 
 1 -Aplique o manifesto:
 
-'''
+```
 kubectl apply -f jogoadivinhacao.yaml
-'''
+```
 
-Verifique os recursos:
+2 -Verifique os recursos:
 
-'''
+```
 kubectl get deployments
-'''
+```
 
-'''
+```
 kubectl get services
-'''
+```
 
-'''
+```
 kubectl get pods
-'''
+```
 
-'''
+```
 kubectl get hpa
-'''
+```
 
-Dicas Adicionais:
-Logs: Se precisar verificar os logs de um pod específico, use:
+**Dicas Adicionais:**
+- Logs: Se precisar verificar os logs de um pod específico, use:
 
-'''
+```
 kubectl logs nome-do-pod
-'''
+```
 
-Descrever Recursos: Para obter mais detalhes sobre um recurso específico, use:
+- Descrever Recursos: Para obter mais detalhes sobre um recurso específico, use:
 
-'''
+```
 kubectl describe deployment nome-do-deployment
-'''
+```
 
-'''
+```
 kubectl describe service nome-do-service
-'''
+```
 
 
 ## Como Jogar
 
 1. Abra o navegador e acesse [http://localhost](http://localhost). Digite uma frase secreta, envie, e salve o game-id.
 2. Para adivinhar a senha, entre com o game_id que foi gerado no passo acima e tente adivinhar.
-
-
 
