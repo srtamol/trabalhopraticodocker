@@ -1,4 +1,4 @@
-# Jogo de Adivinhação com Flask
+# Jogo de Adivinhação com Flask - Pratica 01 - Docker Compose
 
 Este é um simples jogo de adivinhação desenvolvido utilizando o framework Flask. O jogador deve adivinhar uma senha criada aleatoriamente, e o sistema fornecerá feedback sobre o número de letras corretas e suas respectivas posições.
 
@@ -77,12 +77,103 @@ Remover volumes associados
 docker-compose down -v
 ```
 
-## Pratica 02 ##
+# Jogo de Adivinhação com Flask - Pratica 02 - Kubernetes
 
-1- FrontEnd Deployment: Define um Deployment para o FrontEnd com 2 réplicas.
-2- FrontEnd Service: Cria um Service do tipo NodePort para expor o FrontEnd na porta 30000.
-3- BackEnd Deployment: Define um Deployment para o BackEnd com 2 réplicas.
-4- BackEnd Service: Cria um Service do tipo ClusterIP para o BackEnd.
-5- PostgreSQL Deployment: Define um Deployment para o PostgreSQL com 1 réplica.
-6- PostgreSQL Service: Cria um Service do tipo ClusterIP para o PostgreSQL.
-5- HorizontalPodAutoscaler (HPA): Configura o HPA para o BackEnd, escalando entre 2 e 10 réplicas com base na utilização de CPU.
+Este é um simples jogo de adivinhação desenvolvido utilizando o framework Flask. O jogador deve adivinhar uma senha criada aleatoriamente, e o sistema fornecerá feedback sobre o número de letras corretas e suas respectivas posições.
+
+## Estrutura do Repositório do GIT:
+
+Docker Compose File (docker-compose.yml, na pasta raiz do repositorio): Para definir e orquestrar os serviços.
+Dockerfile do Backend (pasta raiz do repositorio: Para configurar o container que executa a aplicação Flask.
+Dockerfile do Frontend (dentro da pasta frontend): Para configurar o container que serve a aplicação frontend via NGINX.
+
+## Requisitos
+
+- Docker
+- Kubectl instalado local ou um cluster Kubernetes
+- GIT
+   
+## Funcionalidades
+
+- Criação de um novo jogo com uma senha fornecida pelo usuário.
+- Adivinhe a senha e receba feedback se as letras estão corretas e/ou em posições corretas.
+- As senhas são armazenadas utilizando base64.
+- As adivinhações incorretas retornam uma mensagem com dicas.
+- Utilizar o  **manifesto jogoadivinhacao.yaml** para criar a estrutura do jogo.
+
+## Instalação
+
+Siga os passos abaixo para instalar e rodar o projeto em sua máquina:
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/srtamol/trabalhopraticodocker.git
+cd trabalhopraticodocker
+```
+
+### 2. Verifique e ajuste as configurações e escale o backend, se achar necessário
+
+FrontEnd Deployment: Define um Deployment para o FrontEnd com 2 réplicas usando uma imagem do Docker Hub.
+FrontEnd Service: Cria um Service do tipo NodePort para expor o FrontEnd na porta 30000.
+BackEnd Deployment: Define um Deployment para o BackEnd com 2 réplicas usando uma imagem do Docker Hub.
+BackEnd Service: Cria um Service do tipo ClusterIP para o BackEnd.
+PostgreSQL Deployment: Define um Deployment para o PostgreSQL com 1 réplica.
+PostgreSQL Service: Cria um Service do tipo ClusterIP para o PostgreSQL.
+HorizontalPodAutoscaler (HPA): Configura o HPA para o BackEnd, escalando entre 2 e 10 réplicas com base na utilização de CPU.
+
+### 3. Rodar o Jogo
+
+Para rodar o projeto, utilize o seguinte comando:
+
+Detalhamento do arquivo jogoadivinhacao.yaml:
+
+1 -Aplique o manifesto:
+
+'''
+kubectl apply -f jogoadivinhacao.yaml
+'''
+
+Verifique os recursos:
+
+'''
+kubectl get deployments
+'''
+
+'''
+kubectl get services
+'''
+
+'''
+kubectl get pods
+'''
+
+'''
+kubectl get hpa
+'''
+
+Dicas Adicionais:
+Logs: Se precisar verificar os logs de um pod específico, use:
+
+'''
+kubectl logs nome-do-pod
+'''
+
+Descrever Recursos: Para obter mais detalhes sobre um recurso específico, use:
+
+'''
+kubectl describe deployment nome-do-deployment
+'''
+
+'''
+kubectl describe service nome-do-service
+'''
+
+
+## Como Jogar
+
+1. Abra o navegador e acesse [http://localhost](http://localhost). Digite uma frase secreta, envie, e salve o game-id.
+2. Para adivinhar a senha, entre com o game_id que foi gerado no passo acima e tente adivinhar.
+
+
+
