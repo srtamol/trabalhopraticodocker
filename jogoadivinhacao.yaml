@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: seu-usuario-dockerhub/seu-frontend-image:latest
+        image: srtamol/aulacontainer:frontend1
         ports:
         - containerPort: 80
 ---
@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: seu-usuario-dockerhub/seu-backend-image:latest
+        image: srtamol/aulacontainer:backend1
         ports:
         - containerPort: 80
 ---
